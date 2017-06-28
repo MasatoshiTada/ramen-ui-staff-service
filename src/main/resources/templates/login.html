@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>俺家 - 店員システム - ログイン</title>
+    <link rel="stylesheet" href="../static/resources/style.css" th:href="@{/resources/style.css}">
+</head>
+<body>
+<h1>店舗IDとパスワードを入力してください</h1>
+<p class="error" th:if="${param.error}">店舗IDまたはパスワードが違います</p>
+<form th:action="@{/login}" action="login.html" method="post">
+    店舗ID：<input type="text" name="shopId" value="tokyo"><br>
+    パスワード：<input type="password" name="password" value="password"><br>
+    <input type="submit" value="ログイン">
+</form>
+</body>
+</html>

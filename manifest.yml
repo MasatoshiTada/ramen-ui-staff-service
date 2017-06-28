@@ -1,0 +1,13 @@
+---
+applications:
+  - name: ramen-ui-staff-service
+    path: target/ui-staff-service-0.0.1-SNAPSHOT.jar
+    buildpack: java_buildpack
+    random-route: false
+    memory: 1G
+    services:
+     - config-server
+     - service-registry
+     - circuit-breaker-dashboard
+     - ramen-cache
+     - rabbitmq-binder

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+                xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>俺家 - 店員システム</title>
+    <link rel="stylesheet" href="../static/resources/style.css" th:href="@{/resources/style.css}">
+</head>
+<body>
+<h1><span sec:authentication="principal.username">店舗名</span> - 未提供注文一覧</h1>
+<h2 th:if="${#lists.isEmpty(orderSummaryList)}">未提供の商品はありません</h2>
+<table border="1" th:unless="${#lists.isEmpty(orderSummaryList)}">
+    <tr>
+        <th>注文日時</th>
+        <th>詳細</th>
+    </tr>
+    <tr th:each="orderSummary : ${orderSummaryList}" th:object="${orderSummary}">
+        <td th:text="*{#temporals.format(orderTimestamp, 'MM月dd日 HH時mm分ss秒')}">10時10分10秒</td>
+        <td>
+            <table border="1">
+                <tr>
+                    <th>品目</th>
+                    <th>数量</th>
+                </tr>
+                <tr th:each="orderDetail : ${orderSummary.orderDetails}" th:object="${orderDetail}">
+                    <td th:text="*{goods.name}">ラーメン並</td>
+                    <td th:text="*{amount}">1</td>
+                </tr>
+            </table>
+        </td>
+        <td>
+            <form th:action="@{'/order/' + ${orderSummary.summaryId}}" action="index.html" method="post">
+                <input type="submit" value="提供完了">
+            </form>
+        </td>
+    </tr>
+</table>
+
+<form th:action="@{/order}" action="index.html" method="get">
+    <input type="submit" value="注文を再読み込み">
+</form>
+<form th:action="@{/logout}" action="login.html" method="post">
+    <input type="submit" value="ログアウト">
+</form>
+</body>
+</html>
