@@ -2,7 +2,6 @@ package com.example.service.impl;
 
 import com.example.service.GoodsService;
 import com.example.service.dto.Goods;
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -33,7 +31,6 @@ public class GoodsServiceImpl implements GoodsService {
         this.goodsServiceUrl = goodsServiceUrl;
     }
 
-    @HystrixCommand(fallbackMethod = "fallbackFindByIds")
     @Override
     public Map<Integer, Goods> findByIds(Integer[] ids) {
         String queryString = Arrays.stream(ids)
@@ -49,11 +46,5 @@ public class GoodsServiceImpl implements GoodsService {
                 .stream()
                 .collect(Collectors.toMap(goods -> goods.getId(), goods -> goods));
         return goodsMap;
-    }
-
-    public Map<Integer, Goods> fallbackFindByIds(Integer[] ids, Throwable throwable) {
-        logger.error("商品データの取得に失敗しました。フォールバックします。", throwable);
-        // FIXME 商品データ取得失敗時のフォールバック処理どうすべき？
-        return Collections.emptyMap();
     }
 }

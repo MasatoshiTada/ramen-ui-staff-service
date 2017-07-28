@@ -33,6 +33,7 @@ public class OrderController {
         String shopId = authentication.getName();
         logger.info("shopId = {}の注文一覧を取得します...", shopId);
         List<OrderSummary> orderSummaryList = orderService.findAllNotProvided(shopId);
+        logger.info("shopId = {}の注文一覧＝{}", shopId, orderSummaryList);
         model.addAttribute("orderSummaryList", orderSummaryList);
         return "index";
     }

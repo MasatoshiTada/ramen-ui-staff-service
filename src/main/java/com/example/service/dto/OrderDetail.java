@@ -43,4 +43,14 @@ public class OrderDetail implements Serializable {
     public void setGoods(Goods goods) {
         this.goods = goods;
     }
+
+    @Override
+    public String toString() {
+        return "OrderDetail{" +
+                "detailId=" + detailId +
+                ", goodsId=" + goodsId +
+                ", amount=" + amount +
+                ", goods=" + goods +
+                '}';
+    }
 }

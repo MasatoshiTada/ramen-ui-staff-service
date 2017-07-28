@@ -67,4 +67,15 @@ public class OrderSummary implements Serializable {
     public void setShopId(String shopId) {
         this.shopId = shopId;
     }
+
+    @Override
+    public String toString() {
+        return "OrderSummary{" +
+                "summaryId=" + summaryId +
+                ", orderTimestamp=" + orderTimestamp +
+                ", provided=" + provided +
+                ", orderDetails=" + orderDetails +
+                ", shopId='" + shopId + '\'' +
+                '}';
+    }
 }
